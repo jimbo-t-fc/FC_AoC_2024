@@ -45,7 +45,7 @@ def plot_guard_route(map, pos, dir=(0,-1), print_map=False):
                 pos_hist[pos] = 0
             pos_hist[pos] += 1
             print_map_def(print_map, map, pos_hist.keys(), pos)
-        else: # move forward is current direction
+        else: # move forward in current direction
             pos_dir_hist.add((new_pos,dir))
             if new_pos not in pos_hist.keys():
                 pos_hist[new_pos] = 0
