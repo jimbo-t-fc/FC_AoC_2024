@@ -62,7 +62,7 @@ def process_rules_and_updates(data):
         numbers = list(map(int, line.split(",")))
         middle_number = get_middle_page(numbers)
         dict_for_line = {}
-        for i, key in enumerate(numbers):  # Start with the second number
+        for i, key in enumerate(numbers):
             dict_for_line[key] = set(numbers[:i])      # Add all preceding numbers
         updates.append((dict_for_line,middle_number))
     return rules, updates
