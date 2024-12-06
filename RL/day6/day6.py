@@ -29,23 +29,27 @@ def print_map_def(print_map, map, pos_hist, final_pos):
 
 def plot_guard_route(map, pos, dir=(0,-1), print_map=False):
     pos_dir_hist = {(pos,dir)}
-    pos_hist = {pos}
+    pos_hist = {pos:1}
     while True:
         new_pos = tuple(a + b for a, b in zip(pos, dir))
         if not is_in_map(map, new_pos): # if escape map then finish successfully
-            print_map_def(print_map, map, pos_hist, pos)
-            return pos_dir_hist, pos_hist, len(pos_hist)
+            print_map_def(print_map, map, pos_hist.keys(), pos)
+            return pos_dir_hist, pos_hist, len(pos_hist.keys())
         elif (new_pos,dir) in pos_dir_hist: # if repeat a position then stuck in a loop
-            print_map_def(print_map, map, pos_hist, new_pos)
+            print_map_def(print_map, map, pos_hist.keys(), new_pos)
             return False, None, None
         elif map[new_pos[1]][new_pos[0]] in ['#','0']: # if hit obstacle turn right
             dir = dir_change[dir]
             pos_dir_hist.add((pos,dir))
-            pos_hist.add(pos)
-            print_map_def(print_map, map, pos_hist, pos)
+            if pos not in pos_hist.keys():
+                pos_hist[pos] = 0
+            pos_hist[pos] += 1
+            print_map_def(print_map, map, pos_hist.keys(), pos)
         else: # move forward is current direction
             pos_dir_hist.add((new_pos,dir))
-            pos_hist.add(new_pos)
+            if new_pos not in pos_hist.keys():
+                pos_hist[new_pos] = 0
+            pos_hist[new_pos] += 1
             pos = new_pos
 
 
@@ -56,7 +60,9 @@ def part_2(map, pos_dir_hist, pos_hist, s_pos):
         if is_in_map(map, obstacle_pos) and not obstacle_pos == s_pos: # ensure the obstacle is in the map and not at the starting point
             temp_map = deepcopy(map)
             temp_map[obstacle_pos[1]][obstacle_pos[0]] = '0'
-            if obstacle_pos in pos_hist:    # if the obstacle is being placed in the path of guard then compute the new route from the beginning
+            # if the obstacle is being placed in a position the guard has previously passed through then compute the new route from the beginning
+            # this is an attempt at an efficiency gain
+            if obstacle_pos in pos_hist.keys() and pos_hist[obstacle_pos] > 1:    
                  success, _, _ = plot_guard_route(temp_map, s_pos, print_map=False)
             else:     # if the guard will have never come across the obstacle before, then compute from current position rotated 90 degrees
                 success, _, _ = plot_guard_route(temp_map, pos, dir=dir_change[dir], print_map=False)
