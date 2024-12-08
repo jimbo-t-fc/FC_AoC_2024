@@ -1,7 +1,7 @@
 import os
 from itertools import product
 
-def evaluate_expression(nums, ops, target):
+def evaluate_expression(nums, ops):
     result = nums[0]
     for i, op in enumerate(ops):
         if op == '+':
@@ -17,7 +17,7 @@ def main(data, operators='+*'):
     total_result = 0
     for target, nums in data:
         for ops in product(operators, repeat=len(nums)-1): # Try all combinations of operators
-            if valid := evaluate_expression(nums, ops, target) == target:
+            if valid := evaluate_expression(nums, ops) == target:
                 break
         if valid:
             total_result += target

@@ -30,22 +30,23 @@ def find_antinodes_part_1(ant_coords, max_x, max_y):
 
 
 def find_line_coordinates(ant_pair, max_x, max_y):
-    (x1, y1), (x2, y2) = ant_pair
     line_coords = {ant_pair[0], ant_pair[1]}
-    # Determine the slope and intercept
+    (x1, y1), (x2, y2) = ant_pair
     dx, dy = x2 - x1, y2 - y1
-    # Move along the line
-    x, y = x1 + dx, y1 + dy
-    while 0 <= x < max_x and 0 <= y < max_y:
-        line_coords.add((x, y))
-        x += dx
-        y += dy
-    # Reverse direction
-    x, y = x1 - dx, y1 - dy
-    while 0 <= x < max_x and 0 <= y < max_y:
-        line_coords.add((x, y))
-        x -= dx
-        y -= dy
+    
+    xplus, yplus = x1 + dx, y1 + dy
+    xminus, yminus = x1 - dx, y1 - dy
+    changeplus, changeminus = True, True
+    while changeplus or changeminus:
+        if changeplus := 0 <= xplus < max_x and 0 <= yplus < max_y:
+            line_coords.add((xplus, yplus))
+            xplus += dx
+            yplus += dy
+        # Reverse direction
+        if changeminus := 0 <= xminus < max_x and 0 <= yminus < max_y:
+            line_coords.add((xminus, yminus))
+            xminus -= dx
+            yminus -= dy
     return line_coords
 
 
