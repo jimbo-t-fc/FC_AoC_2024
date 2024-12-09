@@ -65,7 +65,7 @@ def part_2(map, pos_dir_hist, pos_hist, s_pos):
             if obstacle_pos in pos_hist.keys() and pos_hist[obstacle_pos] > 1:    
                  success, _, _ = plot_guard_route(temp_map, s_pos, print_map=False)
             else:     # if the guard will have never come across the obstacle before, then compute from current position rotated 90 degrees
-                success, _, _ = plot_guard_route(temp_map, pos, dir=dir_change[dir], print_map=False)
+                success, _, _ = plot_guard_route(temp_map, pos, dir=dir_change[dir], print_map=True)
             if not success:
                 obstacle_hist.add(obstacle_pos)
     return len(obstacle_hist)
