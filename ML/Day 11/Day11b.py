@@ -19,9 +19,6 @@ for blink in range(blinks):
             new_stones[new] = new_stones.get(new,0) + quant
     #redirect stones to point to new_stones
     stones = new_stones
-
-answer = 0
-for quant in stones.values():
-    answer += quant
-print(answer)
+    
+print(sum(stones.values()))
     
