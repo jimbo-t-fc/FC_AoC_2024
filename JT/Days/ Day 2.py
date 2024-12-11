@@ -2,7 +2,7 @@
 from get_test_input import read_input
 import re
 from itertools import product, combinations
-from collections import defaultdict, deque
+from collections import defaultdict
 import math as m
 
 lines = read_input(day=2, round=1, test=False)

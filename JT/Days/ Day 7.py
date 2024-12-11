@@ -2,7 +2,7 @@
 from get_test_input import read_input
 import re
 from itertools import product, combinations
-from collections import defaultdict, deque
+from collections import defaultdict
 import math as m
 
 eqn_dict = [(int(line.split(': ')[0]),[int(x) for x in line.split(': ')[1].split(' ')]) for line in read_input(day=7,test=False)]
