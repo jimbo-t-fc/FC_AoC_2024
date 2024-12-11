@@ -10,7 +10,7 @@ def split_notebook(notebook_path, output_dir):
     first_cell = notebook.cells[0]
     if first_cell.cell_type != "code":
         raise ValueError("The first cell must contain imports as a code cell.")
-    imports = first_cell.source.strip()
+    imports = first_cell.source.strip().replace('from get_test_input', 'from ..get_test_input')
 
     # Prepare the output directory
     os.makedirs(output_dir, exist_ok=True)
@@ -26,7 +26,7 @@ def split_notebook(notebook_path, output_dir):
         # Verify markdown cell contains "Day X"
         if markdown_cell.cell_type == "markdown" and "Day" in markdown_cell.source:
             day_name = markdown_cell.source.strip().replace('#','')
-            day_file = os.path.join(output_dir, f"{day_name}.py")
+            day_file = os.path.join(output_dir, f"{day_name.strip().replace(' ','_')}.py")
             
             # Write imports and code to the respective Python file
             with open(day_file, 'w', encoding='utf-8') as py_file:

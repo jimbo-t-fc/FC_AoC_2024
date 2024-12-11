@@ -1,5 +1,5 @@
 #  Day 3
-from get_test_input import read_input
+from ..get_test_input import read_input
 import re
 from itertools import product, combinations
 from collections import defaultdict
