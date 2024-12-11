@@ -2,7 +2,7 @@
 from get_test_input import read_input
 import re
 from itertools import product, combinations
-from collections import defaultdict, deque
+from collections import defaultdict
 import math as m
 
 positions = read_input(day=6,test=False,input_delimter='\n')
