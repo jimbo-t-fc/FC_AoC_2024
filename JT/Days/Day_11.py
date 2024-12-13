@@ -7,7 +7,6 @@ import math as m
 
 power_of_10 = {i: 10 ** i for i in range(20)} 
 
-
 stone_dict = defaultdict(int)
 for stone in map(int, read_input(day=11, test=False, input_delimter=' ')):
     stone_dict[stone] += 1
