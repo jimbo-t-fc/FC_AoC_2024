@@ -1,8 +1,10 @@
+import os
+
 A = []
 B = []
 P = []
 
-with open('input.txt') as puzzleInput:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'input.txt')) as puzzleInput:
     while True:
         #A
         line = puzzleInput.readline().split('+')
