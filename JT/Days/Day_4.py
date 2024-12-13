@@ -4,6 +4,7 @@ import re
 from itertools import product, combinations
 from collections import defaultdict
 import math as m
+import numpy as np
 
 grid = read_input(day=4, test=False)
 def get_rows_columns_diagonals(grid):

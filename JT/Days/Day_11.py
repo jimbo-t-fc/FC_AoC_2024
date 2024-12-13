@@ -4,6 +4,7 @@ import re
 from itertools import product, combinations
 from collections import defaultdict
 import math as m
+import numpy as np
 
 power_of_10 = {i: 10 ** i for i in range(20)} 
 

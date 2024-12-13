@@ -4,6 +4,7 @@ import re
 from itertools import product, combinations
 from collections import defaultdict
 import math as m
+import numpy as np
 
 #code to read input
 rules, updates = read_input(day=5,test=False,input_delimter='\n\n')

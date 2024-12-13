@@ -4,6 +4,7 @@ import re
 from itertools import product, combinations
 from collections import defaultdict
 import math as m
+import numpy as np
 
 disk_info = [[int(str(i//2))]*int(num)  if i % 2 == 0 else [-1]*int(num)  for i , num in enumerate(read_input(day=9,test=False)[0])]
 disk = [file for files in disk_info for file in files ]

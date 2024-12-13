@@ -4,6 +4,7 @@ import re
 from itertools import product, combinations
 from collections import defaultdict
 import math as m
+import numpy as np
 
 positions = read_input(day=6,test=False,input_delimter='\n')
 max_row, max_col = len(positions), len(positions[0])

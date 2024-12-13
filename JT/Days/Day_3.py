@@ -4,6 +4,7 @@ import re
 from itertools import product, combinations
 from collections import defaultdict
 import math as m
+import numpy as np
 
 multipliers = read_input(day=3, round=1, test=True,regex_screen=r'mul\(\d{1,3},\d{1,3}\)')
 

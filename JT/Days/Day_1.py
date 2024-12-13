@@ -4,6 +4,7 @@ import re
 from itertools import product, combinations
 from collections import defaultdict
 import math as m
+import numpy as np
 
 lines = read_input(day=1, round=1, test=False)
 left_list, right_list = [int(l.split('   ')[0]) for l in lines], [int(l.split('   ')[1]) for l in lines]

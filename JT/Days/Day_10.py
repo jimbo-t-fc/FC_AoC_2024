@@ -4,6 +4,7 @@ import re
 from itertools import product, combinations
 from collections import defaultdict
 import math as m
+import numpy as np
 
 height_dict = defaultdict(set)
 map = read_input(day=10,test=False)
