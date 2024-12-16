@@ -2,9 +2,10 @@
 from ..get_test_input import read_input
 import re
 from itertools import product, combinations
-from collections import defaultdict
+from collections import defaultdict, deque
 import math as m
 import numpy as np
+import heapq
 
 challenges = [challenge.split('\n') for challenge in read_input(day=13, test=False,input_delimter='\n\n')]
 

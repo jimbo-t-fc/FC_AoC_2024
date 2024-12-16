@@ -2,9 +2,10 @@
 from ..get_test_input import read_input
 import re
 from itertools import product, combinations
-from collections import defaultdict
+from collections import defaultdict, deque
 import math as m
 import numpy as np
+import heapq
 
 positions = read_input(day=6,test=False,input_delimter='\n')
 max_row, max_col = len(positions), len(positions[0])

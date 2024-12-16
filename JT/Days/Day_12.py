@@ -2,9 +2,10 @@
 from ..get_test_input import read_input
 import re
 from itertools import product, combinations
-from collections import defaultdict
+from collections import defaultdict, deque
 import math as m
 import numpy as np
+import heapq
 
 garden = read_input(day=12, test=False)
 
@@ -18,9 +19,9 @@ def find_regions(coordinates):
         visited.add(coord)
         group.append(coord)
         for d in directions:
-            neighbor = coord + d
-            if neighbor in coordinates and neighbor not in visited:
-                search_coords(neighbor, group)
+            neighbour = coord + d
+            if neighbour in coordinates and neighbour not in visited:
+                search_coords(neighbour, group)
 
     for coord in coordinates:
         if coord not in visited:
