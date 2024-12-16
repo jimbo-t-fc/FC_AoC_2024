@@ -2,9 +2,10 @@
 from ..get_test_input import read_input
 import re
 from itertools import product, combinations
-from collections import defaultdict
+from collections import defaultdict, deque
 import math as m
 import numpy as np
+import heapq
 
 warehouse, moves = read_input(day=15,test=False, input_delimter='\n\n')
 moves = moves.replace('\n','')

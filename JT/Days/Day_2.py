@@ -2,9 +2,10 @@
 from ..get_test_input import read_input
 import re
 from itertools import product, combinations
-from collections import defaultdict
+from collections import defaultdict, deque
 import math as m
 import numpy as np
+import heapq
 
 lines = read_input(day=2, round=1, test=False)
 reports = [[int(x) for x in l.split(' ')] for l in lines]

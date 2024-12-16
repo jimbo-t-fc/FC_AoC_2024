@@ -2,9 +2,10 @@
 from ..get_test_input import read_input
 import re
 from itertools import product, combinations
-from collections import defaultdict
+from collections import defaultdict, deque
 import math as m
 import numpy as np
+import heapq
 
 node_dict , lines = defaultdict(list), read_input(day=8,test=False)
 for key, value in [(char,(i,j))  for i, line in enumerate(lines) for j, char in enumerate(line) if char != '.']:

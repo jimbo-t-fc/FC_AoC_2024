@@ -2,9 +2,10 @@
 from ..get_test_input import read_input
 import re
 from itertools import product, combinations
-from collections import defaultdict
+from collections import defaultdict, deque
 import math as m
 import numpy as np
+import heapq
 
 test = False
 positions_velocities = [(int(y[y.index('=')+1:].split(',')[0]), int(y.split(',')[1]) ) for x in read_input(day=14, test=test) for y in x.split(' ')]

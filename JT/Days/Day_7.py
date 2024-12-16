@@ -2,9 +2,10 @@
 from ..get_test_input import read_input
 import re
 from itertools import product, combinations
-from collections import defaultdict
+from collections import defaultdict, deque
 import math as m
 import numpy as np
+import heapq
 
 eqn_dict = [(int(line.split(': ')[0]),[int(x) for x in line.split(': ')[1].split(' ')]) for line in read_input(day=7,test=False)]
 
