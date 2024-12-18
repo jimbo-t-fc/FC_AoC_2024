@@ -35,7 +35,7 @@ def both_rounds_in_one(maze, start, end):
         
     priority_queue = [(0, start, initial_direction, [start])]
     costs = defaultdict(lambda: float('inf')) #if it's not in the dict of costs, make it a max value
-    iteration_num = 0
+
     while priority_queue:
 
         cost, current, direction, path = heapq.heappop(priority_queue)
@@ -59,7 +59,7 @@ def both_rounds_in_one(maze, start, end):
                 new_cost = cost+ 1 + rotation_cost
                
                 heapq.heappush(priority_queue, (new_cost, next_coord, new_direction, path + [next_coord]))
-        iteration_num +=1
+
     return best, set(visited_points)
 
 
