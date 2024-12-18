@@ -10,7 +10,7 @@ dir_change = {
 def move(pos_dir):
     return tuple(a + b for a, b in zip(pos_dir[0], pos_dir[1]))
 
-def find_routes(tmap, start_pos):
+def find_routes(tmap, start_pos, tscore=1000, fscore=1):
     routes = { # Set to track all routes being explored.
         (start_pos, (0, 1)),  #  Moving right
         (start_pos, (-1, 0)),  # Moving up
@@ -19,8 +19,8 @@ def find_routes(tmap, start_pos):
     successful_routes = [] # List to store successful routes that reach the endpoint.
     position_score_log = { # Dictionary to track the minimum score for reaching each (position, direction).
         (start_pos, (0, 1)): 0,
-        (start_pos, (-1, 0)): 1000,
-        (start_pos, (1, 0)): 1000
+        (start_pos, (-1, 0)): tscore,
+        (start_pos, (1, 0)): tscore
     }
     position_route_log = { # Log the route history for each (position, direction).
         (start_pos, (0, 1)): set(),
@@ -39,38 +39,38 @@ def find_routes(tmap, start_pos):
         if next_pos in prev_pos_list:
             continue
 
-        if tmap[next_pos[0]] == '.':  # Open space: explore further
+        if next_pos[0] in tmap.keys() and tmap[next_pos[0]] == '.':  # Open space: explore further
             # Move forward in the same direction
-            if next_pos not in position_score_log or position_score_log[next_pos] > score + 1: # If this is a better route than any previous:
+            if next_pos not in position_score_log or position_score_log[next_pos] > score + fscore: # If this is a better route than any previous:
                 routes.add(next_pos)
-                position_score_log[next_pos] = score + 1
+                position_score_log[next_pos] = score + fscore
                 position_route_log[next_pos] = prev_pos_list | set([current_pos])
-            elif position_score_log[next_pos] == score + 1: # If this route is as good as another route:
+            elif position_score_log[next_pos] == score + fscore: # If this route is as good as another route:
                 routes.add(next_pos)
                 position_route_log[next_pos] = prev_pos_list | position_route_log[next_pos] | set([current_pos])
 
             # Move forward and turn clockwise
             clockwise_pos = (next_pos[0], dir_change[current_pos[1]][0])
-            if clockwise_pos not in position_score_log or position_score_log[clockwise_pos] > score + 1001: # If this is a better route than any previous:
+            if clockwise_pos not in position_score_log or position_score_log[clockwise_pos] > score + fscore + tscore: # If this is a better route than any previous:
                 routes.add(clockwise_pos)
-                position_score_log[clockwise_pos] = score + 1001
+                position_score_log[clockwise_pos] = score +  fscore + tscore
                 position_route_log[clockwise_pos] = prev_pos_list | set([current_pos, next_pos])
-            elif position_score_log[clockwise_pos] == score + 1001: # If this route is as good as another route:
+            elif position_score_log[clockwise_pos] == score + fscore + tscore: # If this route is as good as another route:
                 routes.add(clockwise_pos)
                 position_route_log[clockwise_pos] = prev_pos_list | position_route_log[clockwise_pos] | set([current_pos, next_pos])
 
             # Move forward and turn anticlockwise
             anticlockwise_pos = (next_pos[0], dir_change[current_pos[1]][1])
-            if anticlockwise_pos not in position_score_log or position_score_log[anticlockwise_pos] > score + 1001: # If this is a better route than any previous:
+            if anticlockwise_pos not in position_score_log or position_score_log[anticlockwise_pos] > score + fscore + tscore: # If this is a better route than any previous:
                 routes.add(anticlockwise_pos)
-                position_score_log[anticlockwise_pos] = score + 1001
+                position_score_log[anticlockwise_pos] = score + fscore + tscore
                 position_route_log[anticlockwise_pos] = prev_pos_list | set([current_pos, next_pos])
-            elif position_score_log[anticlockwise_pos] == score + 1001: # If this route is as good as another route:
+            elif position_score_log[anticlockwise_pos] == score + fscore + tscore: # If this route is as good as another route:
                 routes.add(anticlockwise_pos)
                 position_route_log[anticlockwise_pos] = prev_pos_list | position_route_log[anticlockwise_pos] | set([current_pos, next_pos])
 
-        elif tmap[next_pos[0]] == 'E':  # Endpoint: save the route
-            successful_routes.append((score + 1, prev_pos_list | set([current_pos, next_pos])))
+        elif next_pos[0] in tmap.keys() and tmap[next_pos[0]] == 'E':  # Endpoint: save the route
+            successful_routes.append((score + fscore, prev_pos_list | set([current_pos, next_pos])))
 
     return successful_routes
 
@@ -89,7 +89,7 @@ def print_map(tmap, route_points):
         
     for row, line in enumerate(grid):
         for col, char in enumerate(line):
-            if char=='.' and (row,col) in route_points:
+            if (row,col) in route_points:
                 print('O',end='')
             else:
                 print(char,end='')
