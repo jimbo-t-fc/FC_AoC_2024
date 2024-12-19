@@ -28,7 +28,7 @@ def find_route(maze, start, end):
     lengths = {start: 0}
 
     while priority_queue:
-        _, length, current = heapq.heappop(priority_queue)
+        _,length, current = heapq.heappop(priority_queue)
 
         if current == end:
             return length  
@@ -40,7 +40,7 @@ def find_route(maze, start, end):
 
                 if next_coord not in lengths or new_length < lengths[next_coord]:
                     lengths[next_coord] = new_length
-                    heapq.heappush(priority_queue, (new_length + best_guess(next_coord, end), new_length, next_coord))
+                    heapq.heappush(priority_queue, (new_length+ best_guess(next_coord, end) , new_length, next_coord))
     
     return -1
 
